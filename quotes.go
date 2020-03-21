@@ -114,6 +114,10 @@ func (c *QuotesGetStockInfoCall) Do() (*StockInfo, error) {
 		return nil, errors.Wrapf(err, "DecodeResponseJSON")
 	}
 
+	if len((*target).StockInfoList) == 0 {
+		return nil, fmt.Errorf("%v len((*target).StockInfoList) == 0", c.symbol)
+	}
+
 	ret := (*target).StockInfoList[0]
 	ret.ServerResponse = ServerResponse{
 		Header:         res.Header,
