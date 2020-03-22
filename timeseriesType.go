@@ -2,8 +2,6 @@ package twse
 
 import (
 	"fmt"
-	"strconv"
-	"strings"
 	"time"
 
 	"github.com/pkg/errors"
@@ -33,28 +31,6 @@ func (t *Time) UnmarshalCSV(data []byte) error {
 		return errors.Wrapf(err, "error parsing timestamp %s", s)
 	}
 	*t = Time(d)
-
-	return nil
-}
-
-// Float64 unmarshal string to float64
-type Float64 float64
-
-// UnmarshalCSV process Date
-func (f *Float64) UnmarshalCSV(data []byte) error {
-	s := string(data)
-	s = strings.ReplaceAll(s, ",", "")
-	if s == "--" {
-		*f = 0
-		return nil
-	}
-
-	v, err := strconv.ParseFloat(s, 64)
-	if err != nil {
-		return errors.Wrapf(err, "strconv.ParseFloat %s", s)
-	}
-
-	*f = Float64(v)
 
 	return nil
 }

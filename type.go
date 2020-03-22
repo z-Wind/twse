@@ -4,6 +4,10 @@ import (
 	"context"
 	"net/http"
 	"net/url"
+	"strconv"
+	"strings"
+
+	"github.com/pkg/errors"
 )
 
 // ServerResponse is embedded in each Do response and
@@ -39,4 +43,26 @@ func (c *DefaultCall) Header() http.Header {
 		c.header = make(http.Header)
 	}
 	return c.header
+}
+
+// Float64 unmarshal string to Float64
+type Float64 float64
+
+// UnmarshalCSV process Date
+func (f *Float64) UnmarshalCSV(data []byte) error {
+	s := string(data)
+	s = strings.ReplaceAll(s, ",", "")
+	if s == "--" {
+		*f = 0
+		return nil
+	}
+
+	v, err := strconv.ParseFloat(s, 64)
+	if err != nil {
+		return errors.Wrapf(err, "strconv.ParseFloat %s", s)
+	}
+
+	*f = Float64(v)
+
+	return nil
 }
