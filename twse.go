@@ -27,7 +27,8 @@ type Service struct {
 	twseHost string // API endpoint base URL
 	otcHost  string // API endpoint base URL
 
-	Quotes *QuotesService
+	Quotes     *QuotesService
+	Timeseries *TimeseriesService
 }
 
 // GetClient get client
@@ -65,6 +66,7 @@ func New(client *http.Client) (*Service, error) {
 	}
 	s := &Service{client: client, twseURL: TWSEURL, twseHost: TWSEHOST, otcHost: OTCHOST}
 	s.Quotes = NewQuotesService(s)
+	s.Timeseries = NewTimeseriesService(s)
 
 	return s, nil
 }
