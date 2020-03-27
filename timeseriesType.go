@@ -35,6 +35,10 @@ func (t *Time) UnmarshalCSV(data []byte) error {
 	return nil
 }
 
+func (t Time) String() string {
+	return time.Time(t).String()
+}
+
 // TimeSeriesTWSE time series
 type TimeSeriesTWSE struct {
 	Time         Time    `csv:"日期"`

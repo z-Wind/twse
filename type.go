@@ -48,11 +48,10 @@ func (c *DefaultCall) Header() http.Header {
 // Float64 unmarshal string to Float64
 type Float64 float64
 
-// UnmarshalCSV process Date
-func (f *Float64) UnmarshalCSV(data []byte) error {
+func (f *Float64) unmarshal(data []byte) error {
 	s := string(data)
 	s = strings.ReplaceAll(s, ",", "")
-	if s == "--" {
+	if s == "--" || s == `-` {
 		*f = 0
 		return nil
 	}
@@ -63,6 +62,39 @@ func (f *Float64) UnmarshalCSV(data []byte) error {
 	}
 
 	*f = Float64(v)
+
+	return nil
+}
+
+// UnmarshalJSON process Date
+func (f *Float64) UnmarshalJSON(data []byte) error {
+	return f.unmarshal(data)
+}
+
+// UnmarshalCSV process Date
+func (f *Float64) UnmarshalCSV(data []byte) error {
+	return f.unmarshal(data)
+}
+
+// ListFloat64 unmarshal string to ListInt
+type ListFloat64 []float64
+
+// UnmarshalJSON process Date
+func (l *ListFloat64) UnmarshalJSON(data []byte) error {
+	result := []float64{}
+	str := string(data)
+	str = strings.ReplaceAll(str, `"`, "")
+	sList := strings.Split(str, "_")
+
+	for _, s := range sList[:len(sList)-1] {
+		f, err := strconv.ParseFloat(s, 64)
+		if err != nil {
+			return errors.Wrapf(err, "strconv.ParseFloat %s in %v(%s)", s, sList, str)
+		}
+		result = append(result, f)
+	}
+
+	*l = result
 
 	return nil
 }
