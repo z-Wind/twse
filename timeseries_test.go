@@ -22,7 +22,7 @@ func TestTimeseriesMonthlyTWSECall_doRequest(t *testing.T) {
 		wantErr bool
 	}{
 		// TODO: Add test cases.
-		{"Test", NewTimeseriesService(twseTest).MonthlyTWSE("0050", time.Now()), "https://www.twse.com.tw/exchangeReport/STOCK_DAY?date=20200327&response=csv&stockNo=0050", false},
+		{"Test", NewTimeseriesService(twseTest).MonthlyTWSE("0050", time.Date(2020, time.March, 27, 0, 0, 0, 0, time.Local)), "https://www.twse.com.tw/exchangeReport/STOCK_DAY?date=20200327&response=csv&stockNo=0050", false},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -87,7 +87,7 @@ func TestTimeseriesMonthlyOTCCall_doRequest(t *testing.T) {
 		wantErr bool
 	}{
 		// TODO: Add test cases.
-		{"Test", NewTimeseriesService(twseTest).MonthlyOTC("5483", time.Now()), "https://www.tpex.org.tw/ch/stock/aftertrading/daily_trading_info/st43_download.php?d=109%2F03&r=%25d&stkno=5483", false},
+		{"Test", NewTimeseriesService(twseTest).MonthlyOTC("5483", time.Date(2020, time.March, 27, 0, 0, 0, 0, time.Local)), "https://www.tpex.org.tw/ch/stock/aftertrading/daily_trading_info/st43_download.php?d=109%2F03&r=%25d&stkno=5483", false},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
