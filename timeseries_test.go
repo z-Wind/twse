@@ -57,7 +57,7 @@ func TestTimeseriesMonthlyTWSECall_Do(t *testing.T) {
 	}{
 		// TODO: Add test cases.
 		{"Test", NewTimeseriesService(twseTest).MonthlyTWSE("0050", time.Now()), []*TimeSeriesTWSE{
-			&TimeSeriesTWSE{Time: Time(time.Date(2020, 3, 2, 0, 0, 0, 0, time.UTC)), Volume: 2.7894641e+07, Turnover: 2.437814508e+09, Open: 87.5, High: 88.25, Low: 86.85, Close: 87.35, Change: -1.3, Transactions: 12628},
+			{Time: Time(time.Date(2020, 3, 2, 0, 0, 0, 0, time.UTC)), Volume: 2.7894641e+07, Turnover: 2.437814508e+09, Open: 87.5, High: 88.25, Low: 86.85, Close: 87.35, Change: -1.3, Transactions: 12628},
 		}, false},
 	}
 	for _, tt := range tests {
@@ -123,7 +123,7 @@ func TestTimeseriesMonthlyOTCCall_Do(t *testing.T) {
 	}{
 		// TODO: Add test cases.
 		{"Test", NewTimeseriesService(twseTest).MonthlyOTC("5483", time.Now()), []*TimeSeriesOTC{
-			&TimeSeriesOTC{Time: Time(time.Date(2020, 3, 2, 0, 0, 0, 0, time.UTC)), Volume: 13630, Turnover: 1.443826e+06, Open: 102, High: 108.5, Low: 101.5, Close: 108.5, Change: 3.5, Transactions: 6796},
+			{Time: Time(time.Date(2020, 3, 2, 0, 0, 0, 0, time.UTC)), Volume: 13630, Turnover: 1.443826e+06, Open: 102, High: 108.5, Low: 101.5, Close: 108.5, Change: 3.5, Transactions: 6796},
 		}, false},
 	}
 	for _, tt := range tests {

@@ -1,11 +1,37 @@
 package twse
 
 import (
+	"fmt"
 	"net/http"
 	"reflect"
 	"regexp"
 	"testing"
 )
+
+func Test_Quotes(t *testing.T) {
+	server := NewQuotesService(twseReal)
+
+	GetStockInfoTWSECall := server.GetStockInfoTWSE("0050")
+	got, err := GetStockInfoTWSECall.Do()
+	if err != nil {
+		t.Fatal(err)
+	}
+	fmt.Printf("%+v", got)
+
+	GetStockInfoTWSECall = server.GetStockInfoTWSE("006208")
+	got, err = GetStockInfoTWSECall.Do()
+	if err != nil {
+		t.Fatal(err)
+	}
+	fmt.Printf("%+v", got)
+
+	GetStockInfoOTCCall := server.GetStockInfoOTC("5483")
+	got, err = GetStockInfoOTCCall.Do()
+	if err != nil {
+		t.Fatal(err)
+	}
+	fmt.Printf("%+v", got)
+}
 
 func TestQuotesGetStockInfoCall_doRequest(t *testing.T) {
 	client := clientTest("", http.StatusOK)
