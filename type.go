@@ -51,6 +51,7 @@ type Float64 float64
 func (f *Float64) unmarshal(data []byte) error {
 	s := string(data)
 	s = strings.ReplaceAll(s, ",", "")
+	s = strings.ReplaceAll(s, " ", "")
 	if s == "--" || s == `-` {
 		*f = 0
 		return nil
